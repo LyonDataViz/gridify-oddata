@@ -1,9 +1,5 @@
 import {ENDPOINT, INDEX_FILE} from './constants';
 
-const getFetchFromString = endpoint => relativeFile => {
-  return fetch(endpoint + relativeFile).then(d => d.json());
-};
-
 export async function fetchAllFromEndpoint(endpoint, file) {
   const index = await fetchFromEndpoint(endpoint, file);
   if (
@@ -25,7 +21,9 @@ export async function fetchFromEndpoint(endpoint, file) {
   if (typeof endpoint === 'function') {
     fetchFn = endpoint;
   } else if (typeof endpoint === 'string') {
-    fetchFn = getFetchFromString(endpoint);
+    fetchFn = file => {
+      return fetch(endpoint + file).then(d => d.json());
+    };
   } else {
     throw new TypeError(
       'endpoint parameter must be a string (endpoint base URL) or an API fetch function'
@@ -37,8 +35,4 @@ export async function fetchFromEndpoint(endpoint, file) {
 
 export async function fetchAll(file = INDEX_FILE) {
   return fetchAllFromEndpoint(ENDPOINT, file);
-}
-
-export async function fetchOne(file) {
-  return fetchFromEndpoint(ENDPOINT, file);
 }
