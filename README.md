@@ -25,18 +25,38 @@ AMD, CommonJS, and vanilla environments are supported.
 
 ## API Reference
 
-<a name="fetchAll" href="#fetchAll">#</a>
-oddata.<b>fetchAll</b>([<i>endpoint</i>][, <i>indexfile</i>])
+<a name="fetchAll" href="#fetchAll">#</a> oddata.<b>fetchAll</b>([<i>file</i>])
 [<>](https://github.com/LyonDataViz/gridify-oddata/blob/master/src/fetch.js 'Source')
 
-Fetches a JSON list of datasets (_indexfile_) from _endpoint_, and returns it as
-an array of strings.
+Fetches the list of datasets from https://github.com/LyonDataViz/oddata-public
+repository, and returns it as an array of strings. _file_ is the name of index
+file, it defaults to `dataset.json`.
 
-_endpoint_ is an URL, and defaults to
-'https://raw.githubusercontent.com/LyonDataViz/oddata-public/master/'. It may
-also be a promise that takes a string (a relative path like `dataset.json`, or
-`path/to/index.json`) as an input and resolves to an array of strings.
+<a name="fetchOne" href="#fetchOne">#</a> oddata.<b>fetchOne</b>(<i>file</i>)
+[<>](https://github.com/LyonDataViz/gridify-oddata/blob/master/src/fetch.js 'Source')
 
-_indexfile_ is the name of the relative JSON file that contains an array of
-dataset relative files, eg `['random/random-data.json']`. It defaults to
-'dataset.json'.
+Fetches _file_ from https://github.com/LyonDataViz/oddata-public repository.
+
+<a name="fetchFromEndpoint" href="#fetchFromEndpoint">#</a>
+oddata.<b>fetchFromEndpoint</b>(<i>endpoint</i>, <i>file</i>)
+[<>](https://github.com/LyonDataViz/gridify-oddata/blob/master/src/fetch.js 'Source')
+
+Fetches relative JSON _file_ from _endpoint_, and returns it parsed.
+
+_endpoint_ is the URL of the API endpoint, or a promise that takes a string
+(_file_) as an input and resolves to an array of strings.
+
+_file_ is a filename relative to the endpoint URL.
+
+<a name="fetchAllFromEndpoint" href="#fetchAllFromEndpoint">#</a>
+oddata.<b>fetchAllFromEndpoint</b>(<i>endpoint</i>, <i>file</i>)
+[<>](https://github.com/LyonDataViz/gridify-oddata/blob/master/src/fetch.js 'Source')
+
+Fetches a JSON list of datasets (_file_) from _endpoint_, and returns it as an
+array of strings.
+
+_endpoint_ is the URL of the API endpoint, or a promise that takes a string
+(_file_) as an input and resolves to an array of strings.
+
+_file_ is the name of index file, eg `dataset.json`, that must contain an array
+of datasets filenames.
