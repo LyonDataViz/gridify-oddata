@@ -3,7 +3,7 @@
   "extends": ["prettier", "eslint:recommended"],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 8
+    "ecmaVersion": 9
   },
   "env": {
     "es6": true,
