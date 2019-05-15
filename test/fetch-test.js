@@ -1,10 +1,17 @@
+// ES modules import works thanks to:
+// 1. esm package being installed
+// 2. tape being called with "-r esm" parameter
+// Advantages:
+// - allow to test functions directly from their modules, without them all being
+//   exported by index.js
+// - doesn't require any previous build step (rollup)
+import {fetchAllFromEndpoint, fetchFromEndpoint} from '../src/fetch';
+
 // Required modules
 const syncTape = require('tape');
 const promisifyTape = require('tape-promise').default;
 // ExperimentalWarning: The fs.promises API is experimental
 const fs = require('fs').promises;
-// the following works only after rollup has been run on this package
-const oddata = require('../');
 
 // Common variables and helpers
 const tape = promisifyTape(syncTape);
@@ -37,9 +44,9 @@ tape('ensure async works', async test => {
 tape(
   'fetchAllFromEndpoint(mockEndpoint, "dataset.json") returns the list of JSON files',
   async test => {
-    const json = await oddata
-      .fetchAllFromEndpoint(mockEndpoint, 'dataset.json')
-      .catch(failTestOnError(test));
+    const json = await fetchAllFromEndpoint(mockEndpoint, 'dataset.json').catch(
+      failTestOnError(test)
+    );
     test.deepEqual(json, index);
     test.end();
   }
@@ -49,7 +56,7 @@ tape(
   'fetchAllFromEndpoint(mockEndpoint, "unknownfile.json") throws an exception',
   async test => {
     await test.rejects(
-      oddata.fetchAllFromEndpoint(mockEndpoint, 'unknownfile.json'),
+      fetchAllFromEndpoint(mockEndpoint, 'unknownfile.json'),
       Error,
       'throw an exception if file is unknown or could not be fetched'
     );
@@ -61,15 +68,12 @@ tape(
   'fetchAllFromEndpoint(mockEndpoint, "bad-dataset-*.json") throws an exception',
   async test => {
     await test.rejects(
-      oddata.fetchAllFromEndpoint(
-        mockEndpoint,
-        'bad-dataset-not-an-array.json'
-      ),
+      fetchAllFromEndpoint(mockEndpoint, 'bad-dataset-not-an-array.json'),
       Error,
       'throw an exception if the JSON is not an array'
     );
     await test.rejects(
-      oddata.fetchAllFromEndpoint(mockEndpoint, 'bad-dataset-not-strings.json'),
+      fetchAllFromEndpoint(mockEndpoint, 'bad-dataset-not-strings.json'),
       Error,
       'throw an exception if the JSON is not an array of strings'
     );
@@ -81,7 +85,7 @@ tape(
   'fetchAllFromEndpoint(1, "dataset.json") throws an exception',
   async test => {
     await test.rejects(
-      oddata.fetchAllFromEndpoint(1, 'dataset.json'),
+      fetchAllFromEndpoint(1, 'dataset.json'),
       TypeError,
       'throw an exception if endpoint parameter is not a function or a string'
     );
@@ -93,7 +97,7 @@ tape(
   'fetchAllFromEndpoint(mockEndpoint, 1) throws an exception',
   async test => {
     await test.rejects(
-      oddata.fetchAllFromEndpoint(mockEndpoint, 1),
+      fetchAllFromEndpoint(mockEndpoint, 1),
       TypeError,
       'throw an exception if file parameter is not a string'
     );
@@ -108,9 +112,10 @@ tape(
 tape(
   'fetchFromEndpoint(mockEndpoint, "random/random-data.json") returns the random dataset JSON metadata file',
   async test => {
-    const json = await oddata
-      .fetchFromEndpoint(mockEndpoint, 'random/random-data.json')
-      .catch(failTestOnError(test));
+    const json = await fetchFromEndpoint(
+      mockEndpoint,
+      'random/random-data.json'
+    ).catch(failTestOnError(test));
     test.equals(json.name, 'Random XY Data');
     test.end();
   }
@@ -120,7 +125,7 @@ tape(
   'fetchFromEndpoint(mockEndpoint, "unknownfile.json") throws an exception',
   async test => {
     await test.rejects(
-      oddata.fetchFromEndpoint(mockEndpoint, 'unknownfile.json'),
+      fetchFromEndpoint(mockEndpoint, 'unknownfile.json'),
       Error,
       'throw an exception if file is unknown or could not be fetched'
     );
@@ -130,7 +135,7 @@ tape(
 
 tape('fetchFromEndpoint(1, "dataset.json") throws an exception', async test => {
   await test.rejects(
-    oddata.fetchFromEndpoint(1, 'dataset.json'),
+    fetchFromEndpoint(1, 'dataset.json'),
     TypeError,
     'throw an exception if endpoint parameter is not a function or a string'
   );
@@ -139,7 +144,7 @@ tape('fetchFromEndpoint(1, "dataset.json") throws an exception', async test => {
 
 tape('fetchFromEndpoint(mockEndpoint, 1) throws an exception', async test => {
   await test.rejects(
-    oddata.fetchFromEndpoint(mockEndpoint, 1),
+    fetchFromEndpoint(mockEndpoint, 1),
     TypeError,
     'throw an exception if endpoint parameter is not a function or a string'
   );
