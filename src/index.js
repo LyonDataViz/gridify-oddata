@@ -1,1 +1,1 @@
-export {fetchAll} from './fetch.js';
+export {getAllDefault as getAll} from 'get';
