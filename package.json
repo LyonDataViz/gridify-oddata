@@ -40,10 +40,11 @@
     "esm": "^3.2.22",
     "husky": "^2.2.0",
     "prettier": "^1.17.0",
-    "rollup": "0.64",
-    "rollup-plugin-terser": "1",
+    "rollup": "^1.12.1",
+    "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-terser": "^4.0.4",
     "standard-version": "^5.0.2",
-    "tape": "4",
+    "tape": "^4.10.1",
     "tape-promise": "^4.0.0"
   },
   "husky": {
