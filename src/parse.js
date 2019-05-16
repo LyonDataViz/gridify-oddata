@@ -1,8 +1,8 @@
 import {checkMandatory, checkType, checkAttribute} from './check';
-import {autoType} from 'd3-dsv';
-import {csvReader} from './csvReader';
+import {autoType, dsvFormat} from 'd3-dsv';
 import {doc} from './doc';
 import {DateTime} from 'luxon';
+import {fetchFile} from './fetchFile';
 
 export function parseRaw(json) {
   const raw = {};
@@ -84,14 +84,17 @@ export function parseRaw(json) {
   return raw;
 }
 
-export function parse(json, loadLimit) {
+export function parse(json, endpoint) {
   const raw = parseRaw(json);
 
   return {
     raw: raw,
     title: raw.Title,
     get data() {
-      return csvReader(raw.CSV, raw.Process, raw.Separator, loadLimit);
+      // Problem here: endpoint could be a function that returns a JSON... tbf
+      return fetchFile(endpoint, raw.CSV).then(csv =>
+        dsvFormat(raw.Separator).parse(csv, raw.Process)
+      );
     },
     get doc() {
       return raw.Doc;
