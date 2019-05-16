@@ -2,7 +2,7 @@ import {checkMandatory, checkType, checkAttribute} from './check';
 import {autoType} from 'd3-dsv';
 import {csvReader} from './csvReader';
 import {doc} from './doc';
-import {default as dateParse} from 'date-fns/parse';
+import {DateTime} from 'luxon';
 
 export function parseRaw(json) {
   const raw = {};
@@ -69,11 +69,10 @@ export function parseRaw(json) {
             if (!raw.Dateformat) {
               throw new Error('dateformat field is required to parse CSV');
             }
-            parsedRow[key] = dateParse(
+            parsedRow[key] = DateTime.fromFormat(
               parsedRow[alias],
-              raw.Dateformat,
-              new Date()
-            );
+              raw.Dateformat
+            ).toJSDate();
           }
         }
       }
