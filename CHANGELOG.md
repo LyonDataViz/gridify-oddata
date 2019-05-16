@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.2"></a>
+## [1.3.2](https://github.com/LyonDataViz/gridify-oddata/compare/v1.3.1...v1.3.2) (2019-05-16)
+
+
+### Bug Fixes
+
+* replace date-fns by luxon as it's usable as esm ([027514d](https://github.com/LyonDataViz/gridify-oddata/commit/027514d))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/LyonDataViz/gridify-oddata/compare/v1.3.0...v1.3.1) (2019-05-15)
 
