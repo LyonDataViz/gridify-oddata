@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.4"></a>
+## [1.3.4](https://github.com/LyonDataViz/gridify-oddata/compare/v1.3.3...v1.3.4) (2019-05-16)
+
+
+### Bug Fixes
+
+* fix fetchFile + use default date format if not given ([198980b](https://github.com/LyonDataViz/gridify-oddata/commit/198980b))
+
+
+
 <a name="1.3.3"></a>
 ## [1.3.3](https://github.com/LyonDataViz/gridify-oddata/compare/v1.3.2...v1.3.3) (2019-05-16)
 
