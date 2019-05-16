@@ -69,7 +69,7 @@ export function parseRaw(json) {
           if (key.match(/date/)) {
             if (!raw.Dateformat) {
               //throw new Error('dateformat field is required to parse CSV');
-              parsedRow[key] = DateTime.fromFormat(parsedRow[alias]).toJSDate();
+              parsedRow[key] = DateTime.fromHTTP(parsedRow[alias]).toJSDate();
             } else {
               parsedRow[key] = DateTime.fromFormat(
                 parsedRow[alias],
