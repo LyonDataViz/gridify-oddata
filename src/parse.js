@@ -2,7 +2,7 @@ import {checkMandatory, checkType, checkAttribute} from './check';
 import {autoType, dsvFormat} from 'd3-dsv';
 import {doc} from './doc';
 import {DateTime} from 'luxon';
-import {fetchFile} from './fetchFile';
+import {fetchText} from './fetchFile';
 
 export function parseRaw(json) {
   const raw = {};
@@ -20,6 +20,7 @@ export function parseRaw(json) {
   checkType(json, 'file', 'string');
   raw.CSV = json.file;
   // separator
+  // we should check it is only one character
   checkType(json, 'separator', 'string');
   raw.Separator = json.separator || ',';
   // dateformat
@@ -67,12 +68,14 @@ export function parseRaw(json) {
           parsedRow[key] = parsedRow[alias];
           if (key.match(/date/)) {
             if (!raw.Dateformat) {
-              throw new Error('dateformat field is required to parse CSV');
+              //throw new Error('dateformat field is required to parse CSV');
+              parsedRow[key] = DateTime.fromFormat(parsedRow[alias]).toJSDate();
+            } else {
+              parsedRow[key] = DateTime.fromFormat(
+                parsedRow[alias],
+                raw.Dateformat
+              ).toJSDate();
             }
-            parsedRow[key] = DateTime.fromFormat(
-              parsedRow[alias],
-              raw.Dateformat
-            ).toJSDate();
           }
         }
       }
@@ -92,7 +95,7 @@ export function parse(json, endpoint) {
     title: raw.Title,
     get data() {
       // Problem here: endpoint could be a function that returns a JSON... tbf
-      return fetchFile(endpoint, raw.CSV).then(csv =>
+      return fetchText(endpoint, raw.CSV).then(csv =>
         dsvFormat(raw.Separator).parse(csv, raw.Process)
       );
     },
