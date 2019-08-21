@@ -1,7 +1,7 @@
-import {fetchFile} from './fetchFile';
+import {fetchJson} from './fetchFile';
 
 export async function fetchList(endpoint, file) {
-  const list = await fetchFile(endpoint, file);
+  const list = await fetchJson(endpoint, file);
   if (
     !Array.isArray(list) ||
     list.some(dataset => typeof dataset !== 'string')

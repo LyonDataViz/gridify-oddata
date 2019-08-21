@@ -1,18 +1,18 @@
-import {ENDPOINT, INDEX_FILE, LOAD_LIMIT} from './constants';
+import {ENDPOINT, INDEX_FILE} from './constants';
 import {fetchList} from './fetchList';
-import {fetchFile} from './fetchFile';
+import {fetchJson} from './fetchFile';
 import {parse} from './parse';
 
-export async function get(endpoint, indexFile, loadLimit = LOAD_LIMIT) {
+export async function get(endpoint, indexFile) {
   const list = await fetchList(endpoint, indexFile);
   const metadata = await Promise.all(
     list.map(file =>
-      fetchFile(endpoint, file).then(json => parse(json, loadLimit))
+      fetchJson(endpoint, file).then(json => parse(json, endpoint))
     )
   );
   return metadata;
 }
 
 export async function getDefault() {
-  return get(ENDPOINT, INDEX_FILE, LOAD_LIMIT);
+  return get(ENDPOINT, INDEX_FILE);
 }
