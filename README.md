@@ -10,8 +10,8 @@ AMD, CommonJS, and vanilla environments are supported.
 
 ## API Reference
 
-<a name="getAll" href="#getAll">#</a> <b>getAll</b>()
-[<>](https://github.com/LyonDataViz/gridify-oddata/blob/master/src/getAll.js 'Source')
+<a name="get" href="#get">#</a> <b>get</b>()
+[<>](https://github.com/LyonDataViz/gridify-oddata/blob/master/src/get.js 'Source')
 
 Fetches the list of datasets from https://github.com/LyonDataViz/oddata-public
 repository (using the
