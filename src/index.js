@@ -1,1 +1,6 @@
-export {fetchAll} from './fetch.js';
+export {
+  fetchAll,
+  fetchAllFromEndpoint,
+  fetchFromEndpoint,
+  fetchOne,
+} from './fetch.js';
