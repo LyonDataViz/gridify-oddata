@@ -1,7 +1,8 @@
 import {terser} from 'rollup-plugin-terser';
+import resolve from 'rollup-plugin-node-resolve';
 import * as meta from './package.json';
 
-const config = {
+const umd = {
   input: 'src/index.js',
   output: {
     file: meta.main,
@@ -13,24 +14,29 @@ const config = {
       meta.version
     } Copyright ${new Date().getFullYear()} ${meta.author.name}`,
   },
-  plugins: [],
+  plugins: [resolve()],
+  onwarn: function(warning, warn) {
+    if (warning.code === 'CIRCULAR_DEPENDENCY') {
+      return;
+    }
+    warn(warning);
+  },
 };
 
-export default [
-  config,
-  {
-    ...config,
-    output: {
-      ...config.output,
-      file: meta.unpkg,
-    },
-    plugins: [
-      ...config.plugins,
-      terser({
-        output: {
-          preamble: config.output.banner,
-        },
-      }),
-    ],
+const umdMin = {
+  ...umd,
+  output: {
+    ...umd.output,
+    file: meta.unpkg,
   },
-];
+  plugins: [
+    ...umd.plugins,
+    terser({
+      output: {
+        preamble: umd.output.banner,
+      },
+    }),
+  ],
+};
+
+export default [umd, umdMin];
