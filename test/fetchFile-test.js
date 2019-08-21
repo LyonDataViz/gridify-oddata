@@ -1,4 +1,4 @@
-import {fetchFile} from '../src/fetchFile';
+import {fetchJson} from '../src/fetchFile';
 
 // Required modules
 const syncTape = require('tape');
@@ -14,14 +14,14 @@ const failTestOnError = test => error => {
   test.end();
 };
 
-// fetchFile
+// fetchJson
 //
 // Test strategy: fetch promise is not tested with tape, as it's a browser
 // functionality.
 tape(
-  'fetchFile(mockEndpoint, "random/random-data.json") returns the random dataset JSON metadata file',
+  'fetchJson(mockEndpoint, "random/random-data.json") returns the random dataset JSON metadata file',
   async test => {
-    const json = await fetchFile(mockEndpoint, 'random/random-data.json').catch(
+    const json = await fetchJson(mockEndpoint, 'random/random-data.json').catch(
       failTestOnError(test)
     );
     test.equals(typeof json, 'object', 'returns an object');
@@ -35,10 +35,10 @@ tape(
 );
 
 tape(
-  'fetchFile(mockEndpoint, "unknownfile.json") throws an exception',
+  'fetchJson(mockEndpoint, "unknownfile.json") throws an exception',
   async test => {
     await test.rejects(
-      fetchFile(mockEndpoint, 'unknownfile.json'),
+      fetchJson(mockEndpoint, 'unknownfile.json'),
       Error,
       'throw an exception if file is unknown or could not be fetched'
     );
@@ -46,18 +46,18 @@ tape(
   }
 );
 
-tape('fetchFile(1, "dataset.json") throws an exception', async test => {
+tape('fetchJson(1, "dataset.json") throws an exception', async test => {
   await test.rejects(
-    fetchFile(1, 'dataset.json'),
+    fetchJson(1, 'dataset.json'),
     TypeError,
     'throw an exception if endpoint parameter is not a function or a string'
   );
   test.end();
 });
 
-tape('fetchFile(mockEndpoint, 1) throws an exception', async test => {
+tape('fetchJson(mockEndpoint, 1) throws an exception', async test => {
   await test.rejects(
-    fetchFile(mockEndpoint, 1),
+    fetchJson(mockEndpoint, 1),
     TypeError,
     'throw an exception if endpoint parameter is not a function or a string'
   );
