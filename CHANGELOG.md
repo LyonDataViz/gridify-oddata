@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.6"></a>
+## [1.3.6](https://github.com/LyonDataViz/gridify-oddata/compare/v1.3.5...v1.3.6) (2019-05-16)
+
+
+### Bug Fixes
+
+* fix UMD bundle with rollup ([9c21d8f](https://github.com/LyonDataViz/gridify-oddata/commit/9c21d8f))
+
+
+
 <a name="1.3.5"></a>
 ## [1.3.5](https://github.com/LyonDataViz/gridify-oddata/compare/v1.3.4...v1.3.5) (2019-05-16)
 
