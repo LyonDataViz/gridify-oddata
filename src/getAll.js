@@ -1,6 +1,6 @@
 import {ENDPOINT, INDEX_FILE} from './constants';
-import {fetchList} from './fetchList.js';
-import {fetchFile} from './fetchFile.js';
+import {fetchList} from './fetchList';
+import {fetchFile} from './fetchFile';
 
 export async function getAll(endpoint, file) {
   return fetchList(endpoint, file).then(list =>
