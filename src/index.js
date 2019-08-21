@@ -1,1 +1,1 @@
-export {getAllDefault as getAll} from 'getAll';
+export {getDefault as get} from 'getAll';
