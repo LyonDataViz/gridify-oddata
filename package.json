@@ -1,0 +1,51 @@
+{
+  "name": "@gridify/oddata",
+  "version": "1.0.0",
+  "description": "Fetch origin-destination data",
+  "keywords": [
+    "origin-destination",
+    "data"
+  ],
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Sylvain Lesage"
+  },
+  "main": "dist/gridify-oddata.js",
+  "unpkg": "dist/gridify-oddata.min.js",
+  "jsdelivr": "dist/gridify-oddata.min.js",
+  "module": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LyonDataViz/gridify-oddata.git"
+  },
+  "scripts": {
+    "pretest": "rollup -c",
+    "release": "standard-version",
+    "test": "tape 'test/**/*-test.js' && eslint src test"
+  },
+  "bugs": {
+    "url": "https://github.com/LyonDataViz/gridify-oddata/issues"
+  },
+  "homepage": "https://github.com/LyonDataViz/gridify-oddata#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^7.6.1",
+    "@commitlint/config-conventional": "^7.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.2.0",
+    "prettier": "^1.17.0",
+    "rollup": "0.64",
+    "rollup-plugin-terser": "1",
+    "standard-version": "^5.0.2",
+    "tape": "4",
+    "tape-promise": "^4.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run test"
+    }
+  }
+}
