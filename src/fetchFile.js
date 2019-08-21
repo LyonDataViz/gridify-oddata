@@ -18,7 +18,7 @@ export async function fetchJson(endpoint, file) {
   return fetchFn(file);
 }
 
-export async function fetchFile(endpoint, file) {
+export async function fetchText(endpoint, file) {
   if (typeof file !== 'string') {
     throw new TypeError('file parameter must be a string');
   }
@@ -27,7 +27,7 @@ export async function fetchFile(endpoint, file) {
     fetchFn = endpoint;
   } else if (typeof endpoint === 'string') {
     fetchFn = file => {
-      return fetch(endpoint + file);
+      return fetch(endpoint + file).then(d => d.text());
     };
   } else {
     throw new TypeError(
